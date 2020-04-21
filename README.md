@@ -21,3 +21,9 @@ The run.sh file compiles and executes the project.
 ### Main Function
 
 The main function creates the four threads and runs an infinity loop.
+
+## Running
+
+To run the project just run the following command:
+
+> sh run.sh
