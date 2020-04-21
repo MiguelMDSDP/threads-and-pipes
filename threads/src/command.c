@@ -2,40 +2,41 @@
 #include <stdlib.h>
 #include <string.h>
 
-void printCallback();
-void removeInputLine();
+#include "../lib/command.h"
 
-void printCallback() {
+void removeCommandInputLine();
+
+void *commandCallback(void *param) {
     while (1) {
         FILE *inputPipe;
         char input[100];
 
-        inputPipe = fopen("pipes/logs.txt", "r");
+        inputPipe = fopen("pipes/commands.txt", "r");
         if (fgets(input, sizeof(input), inputPipe) == NULL) {
             fclose(inputPipe);
             continue;
         }
         
-        printf("[PRINT-THREAD]: %s", input);
+        printf("[COMMAND-THREAD]: %s", input);
         fclose(inputPipe);
 
-        removeInputLine();
+        removeCommandInputLine();
     }
 }
 
-void removeInputLine() {
+void removeCommandInputLine() {
     char removed[100], copy[100];
     FILE *aux, *pipe;
 
-    aux = fopen("pipes/auxlog.txt", "w");
-    pipe = fopen("pipes/logs.txt", "r");
+    aux = fopen("pipes/auxcmd.txt", "w");
+    pipe = fopen("pipes/commands.txt", "r");
     fgets(removed, 100, pipe);
     while (fgets(copy, 100, pipe) != NULL) fputs(copy, aux);
     fclose(aux);
     fclose(pipe);
 
-    aux = fopen("pipes/auxlog.txt", "r");
-    pipe = fopen("pipes/logs.txt", "w");
+    aux = fopen("pipes/auxcmd.txt", "r");
+    pipe = fopen("pipes/commands.txt", "w");
     while (fgets(copy, 100, aux) != NULL) fputs(copy, pipe);
     fclose(aux);
     fclose(pipe);

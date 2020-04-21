@@ -2,10 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-void brokerCallback();
-void removeInputLine();
+#include "../lib/broker.h"
 
-void brokerCallback() {
+void removeBrokerInputLine();
+
+void *brokerCallback(void *param) {
     while (1) {
         FILE *inputPipe, *outputPipe;
         char input[100], output[100];
@@ -33,11 +34,11 @@ void brokerCallback() {
         fclose(inputPipe);
         fclose(outputPipe);
 
-        removeInputLine();
+        removeBrokerInputLine();
     }
 }
 
-void removeInputLine() {
+void removeBrokerInputLine() {
     char removed[100], copy[100];
     FILE *aux, *pipe;
 
