@@ -5,11 +5,6 @@
 void brokerCallback();
 void removeInputLine();
 
-int main() {
-    brokerCallback();
-    return 0;
-}
-
 void brokerCallback() {
     while (1) {
         FILE *inputPipe, *outputPipe;
