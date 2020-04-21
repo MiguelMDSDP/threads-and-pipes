@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int inputCallback();
+void inputCallback();
 
-int inputCallback() {
+void inputCallback() {
     FILE *pipe;
     char input[100];
 
